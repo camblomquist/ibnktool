@@ -180,9 +180,9 @@ namespace ibnktool
         private void loadFromStream(BeBinaryReader reader)
         {
             Target = reader.ReadByte();
-            reader.ReadBytes(3);
             Register = reader.ReadByte();
             Key = reader.ReadByte();
+            reader.ReadByte();
             Floor = reader.ReadSingle();
             Ceiling = reader.ReadSingle();
         }
@@ -266,10 +266,10 @@ namespace ibnktool
 
             var oscA = reader.ReadUInt32();
             var oscB = reader.ReadUInt32();
-            var effA = reader.ReadUInt32();
-            var effB = reader.ReadUInt32();
             var ranA = reader.ReadUInt32();
             var ranB = reader.ReadUInt32();
+            var effA = reader.ReadUInt32();
+            var effB = reader.ReadUInt32();
 
             var keyRegCount = reader.ReadUInt32();
             var keyRegPtrs = util.readInt32Array(reader, (int)keyRegCount);
@@ -323,10 +323,10 @@ namespace ibnktool
             wr.Write(Volume);
             wr.Write(oscillatorA == null ? 0 : oscillatorA.mBaseAddress);
             wr.Write(oscillatorB == null ? 0 : oscillatorB.mBaseAddress);
-            wr.Write(effectA == null ? 0 : effectA.mBaseAddress);
-            wr.Write(effectB == null ? 0 : effectB.mBaseAddress);
             wr.Write(randA == null ? 0 : randA.mBaseAddress);
             wr.Write(randB == null ? 0 : randB.mBaseAddress);
+            wr.Write(effectA == null ? 0 : effectA.mBaseAddress);
+            wr.Write(effectB == null ? 0 : effectB.mBaseAddress);
             wr.Write(keys.Length);
             for (int i = 0; i < keys.Length; i++)
                 wr.Write(keys[i].mBaseAddress);
